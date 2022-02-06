@@ -1,6 +1,8 @@
 name: Get UFC Events Workflow
 
-on: push
+on:
+  schedule:
+    - cron: "0 13 * * 0"
 
 jobs:
   get_data:
