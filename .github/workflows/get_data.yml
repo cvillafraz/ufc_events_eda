@@ -1,7 +1,6 @@
 name: Get UFC Events Workflow
 
-on:
-  push
+on: push
 
 jobs:
   get_data:
@@ -17,13 +16,13 @@ jobs:
         with:
           activate-environment: ufc_events_eda
           environment-file: environment.yml
-      - run:
-          pip install --editable .
+      - run: pip install --editable .
 
       - name: Make dataset # Run scripts/run_job.py
         run: python ufc_events_eda/data/make_dataset.py
 
       - name: Commit data file
+        id: commit
         run: |
           git config --local user.email "cirov@protonmail.com"
           git config --local user.name "cvillafraz"
@@ -34,9 +33,9 @@ jobs:
             git commit -m "Get raw dataset on $(date '+%b %d %Y')" -a
             echo "::set-output name=push::true"
           fi
-      shell: bash
-    - name: Push changes
-      if: steps.commit.outputs.push == 'true'
-      uses: ad-m/github-push-action@master
-      with:
-         github_token: ${{ secrets.GITHUB_TOKEN }}
+        shell: bash
+      - name: Push changes
+        if: steps.commit.outputs.push == 'true'
+        uses: ad-m/github-push-action@master
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
