@@ -1,4 +1,4 @@
-name: ufc_events_eda
+name: ufc-events-eda
 channels:
   - conda-forge
   - defaults
@@ -222,8 +222,8 @@ dependencies:
   - zlib=1.2.11=h36c2ea0_1013
   - zstd=1.5.2=ha95c52a_0
   - pip:
-    - msgpack-python==0.5.6
-    - python-decouple==3.5
-    - retrying==1.3.3
-    - scrapinghub==2.3.1
+      - msgpack-python==0.5.6
+      - python-decouple==3.5
+      - retrying==1.3.3
+      - scrapinghub==2.3.1
 prefix: /home/cvillafraz/anaconda3/envs/ufc_events_eda
