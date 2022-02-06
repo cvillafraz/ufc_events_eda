@@ -16,7 +16,9 @@ jobs:
         with:
           activate-environment: ufc_events_eda
           environment-file: environment.yml
+          auto-activate-base: false
       - run: |
+          conda info
           pip install --editable .
           python ufc_events_eda/data/make_dataset.py
 
