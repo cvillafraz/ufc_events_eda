@@ -1,30 +1,28 @@
 import logging
-import time
 import requests
-import pandas as pd
+import ufc_events_eda.utils.paths as path
 from scrapinghub import ScrapinghubClient
 from config import cloud_config
 
 logging.basicConfig(level=10)
 
 
-def run_spider_job() -> str:
+def _get_last_job_key() -> str:
     client = ScrapinghubClient(cloud_config["API_KEY"])
     spider = client.get_project(580548).spiders.get("ufc_spider")
-    job = spider.jobs.run()
-    while not job.metadata.get("state") == "finished":
-        logging.info("Waiting for spider job to finish")
-        time.sleep(60)
-    return job.key
+    return list(spider.jobs.iter_last())[0].get("key")
 
 
-def get_data(job_key: str):
+def get_data():
+    job_key = _get_last_job_key()
     url = f'https://storage.scrapinghub.com/items/{job_key}?apikey={cloud_config["API_KEY"]}&format=json&saveas=ufc_events.json'
     res = requests.get(url)
-    with open("save.json", "w", encoding="utf-8") as f:
-        f.write(res.content.decode("utf-8"))
+    raw_path = path.data_raw_dir("ufc_events.json")
+    if res.status_code == 200:
+        with open(raw_path, "w", encoding="utf-8") as f:
+            f.write(res.content.decode("utf-8"))
+            logging.info(f"Saved file to path {raw_path}")
 
 
 if __name__ == "__main__":
-    job_key = run_spider_job()
-    get_data("job_key")
+    get_data()
