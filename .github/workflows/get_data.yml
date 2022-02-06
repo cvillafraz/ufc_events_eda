@@ -24,16 +24,16 @@ jobs:
         run: python ufc_events_eda/data/make_dataset.py
 
       - name: Commit data file
-      run: |
-        git config --local user.email "cirov@protonmail.com"
-        git config --local user.name "cvillafraz"
-        git add --all
-        if [-z "$(git status --porcelain)"]; then
-           echo "::set-output name=push::false"
-        else
-           git commit -m "Get raw dataset on $(date '+%b %d %Y')" -a
-           echo "::set-output name=push::true"
-        fi
+        run: |
+          git config --local user.email "cirov@protonmail.com"
+          git config --local user.name "cvillafraz"
+          git add --all
+          if [-z "$(git status --porcelain)"]; then
+            echo "::set-output name=push::false"
+          else
+            git commit -m "Get raw dataset on $(date '+%b %d %Y')" -a
+            echo "::set-output name=push::true"
+          fi
       shell: bash
     - name: Push changes
       if: steps.commit.outputs.push == 'true'
