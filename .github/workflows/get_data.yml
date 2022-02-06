@@ -20,7 +20,8 @@ jobs:
           auto-activate-base: false
           auto-update-conda: true
       - run: |
-          conda info
+          conda activate ufc_events_eda
+          conda env list
           pip install --editable .
           python ufc_events_eda/data/make_dataset.py
 
