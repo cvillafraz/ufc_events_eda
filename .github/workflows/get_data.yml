@@ -16,10 +16,9 @@ jobs:
         with:
           activate-environment: ufc_events_eda
           environment-file: environment.yml
-      - run: pip install --editable .
-
-      - name: Make dataset # Run scripts/run_job.py
-        run: python ufc_events_eda/data/make_dataset.py
+      - run: |
+          pip install --editable .
+          python ufc_events_eda/data/make_dataset.py
 
       - name: Commit data file
         id: commit
