@@ -61,7 +61,8 @@ target/
 # pyenv python configuration file
 .python-version
 
-
+data/external
+data/interim
 
 # ipynb checkpoints
 .ipynb_checkpoints
