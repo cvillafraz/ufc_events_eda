@@ -6,3 +6,4 @@ pyprojroot==0.2.0
 requests==2.27.1
 geopy==2.2.0
 pandas==1.4.0
+pyarrow==7.0.0

@@ -3,6 +3,9 @@ from ufc_events_eda.data.parse_json import parse_json
 import pandas as pd
 from geopy.geocoders import Nominatim
 from geopy.extra.rate_limiter import RateLimiter
+import logging
+
+logging.basicConfig(level=logging.INFO)
 
 
 def _geocode_df_cities(df: pd.DataFrame) -> pd.DataFrame:
@@ -14,6 +17,7 @@ def _geocode_df_cities(df: pd.DataFrame) -> pd.DataFrame:
         lon.append(geocoded[1])
     df["latitude"] = lat
     df["longitude"] = lon
+    logging.info(f"Geocoded {len(df)} cities.")
     return df
 
 
