@@ -1,0 +1,25 @@
+name: Test nomatim geocode
+
+on: push
+
+jobs:
+  get_data:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository content
+        uses: actions/checkout@v2 # Checkout the repository content to github runner.
+
+      - name: Setup Python Version
+        uses: actions/setup-python@v2
+        with:
+          python-version: 3.9 # Install the python version needed
+
+      - name: Install Python dependencies
+        uses: py-actions/py-dependency-install@v3
+        with:
+          path: "gh_requirements.txt"
+
+      - name: Execute job script # Run scripts/run_job.py
+        run: |
+          pip install --editable .
+          python ufc_events_eda/data/geocode.py
