@@ -17,7 +17,9 @@ def _geocode_df_cities(df: pd.DataFrame) -> pd.DataFrame:
         lon.append(geocoded[1])
     df["latitude"] = lat
     df["longitude"] = lon
-    logging.info(f"Geocoded {len(df)} cities.")
+    logging.info(
+        f"Null values in latitude: {df['latitude'].isnull().sum()}, total: {len(df)}"
+    )
     return df
 
 
