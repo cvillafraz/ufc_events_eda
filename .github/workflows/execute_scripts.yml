@@ -23,7 +23,6 @@ jobs:
           auto-activate-base: false
           auto-update-conda: true
       - run: |
-          conda info
           pip install --editable .
           python ufc_events_eda/data/make_dataset.py
 
@@ -32,13 +31,8 @@ jobs:
         run: |
           git config --local user.email "cirov@protonmail.com"
           git config --local user.name "cvillafraz"
-          git add --all
-          if [-z "$(git status --porcelain)"]; then
-            echo "::set-output name=push::false"
-          else
-            git commit -m "Get raw dataset on $(date '+%b %d %Y')" -a
-            echo "::set-output name=push::true"
-          fi
+          git add data/raw/ufc_events.json
+          git commit -m "Get raw dataset on $(date '+%b %d %Y')" -a
         shell: bash
       - name: Push changes
         if: steps.commit.outputs.push == 'true'
