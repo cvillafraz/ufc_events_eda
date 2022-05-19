@@ -15,7 +15,7 @@ jobs:
       - uses: conda-incubator/setup-miniconda@v2
         with:
           auto-activate-base: false
-          activate-environment: ufc-events-eda
+          activate-environment: ufc_events_eda
           environment-file: environment.yml
           python-version: 3.9
           auto-update-conda: true
