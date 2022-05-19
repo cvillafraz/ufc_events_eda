@@ -1,8 +1,6 @@
-name: Get UFC Events Workflow
+name: Get data and upload viz workflow
 
-on:
-  schedule:
-    - cron: "0 13 * * 0"
+on: push
 
 jobs:
   get_data:
@@ -14,18 +12,15 @@ jobs:
       - name: Checkout repository content
         uses: actions/checkout@v2 # Checkout the repository content to github runner.
 
-      - name: Setup Python Version
-        uses: actions/setup-python@v2
+      - uses: conda-incubator/setup-miniconda@v2
         with:
-          python-version: 3.9 # Install the python version needed
-
-      - name: Install Python dependencies
-        uses: py-actions/py-dependency-install@v3
-        with:
-          path: "gh_requirements.txt"
-
-      - name: Execute job script # Run scripts/run_job.py
-        run: |
+          auto-activate-base: false
+          activate-environment: ufc-events-eda
+          environment-file: environment.yml
+          python-version: 3.9
+          auto-update-conda: true
+      - run: |
+          conda env list
           pip install --editable .
           python ufc_events_eda/data/make_dataset.py
 
