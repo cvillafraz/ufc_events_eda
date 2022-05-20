@@ -17,8 +17,7 @@ jobs:
       - name: Checkout repository content
         uses: actions/checkout@v2 # Checkout the repository content to github runner.
 
-      - name: Generate datasets and viz
-        uses: conda-incubator/setup-miniconda@v2
+      - uses: conda-incubator/setup-miniconda@v2
         with:
           activate-environment: ufc_events_eda
           environment-file: environment.yml
