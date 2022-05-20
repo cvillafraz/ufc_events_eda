@@ -39,6 +39,6 @@ def upload():
     logging.info("Upload complete.")
 
 
-if __name__ == "_main__":
+if __name__ == "__main__":
     logging.info("Uploading files to S3.")
     upload()
