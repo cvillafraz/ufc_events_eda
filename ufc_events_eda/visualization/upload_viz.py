@@ -40,4 +40,5 @@ def upload():
 
 
 if __name__ == "_main__":
+    logging.info("Uploading files to S3.")
     upload()
