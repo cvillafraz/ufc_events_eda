@@ -18,12 +18,11 @@ def _upload_file(file_path: str, bucket: str, object_name: str):
         object_name (str): Name of the S3 object.
     """
 
+    content_type = "text/html" if re.search(r"html$", file_path) else "video/mp4"
     s3 = boto3.client("s3")
     try:
         s3.upload_file(
-            file_path,
-            bucket,
-            object_name,
+            file_path, bucket, object_name, ExtraArgs={"ContentType": content_type}
         )
         logging.info(f"Uploaded {object_name} to {bucket}.")
     except ClientError as e:
