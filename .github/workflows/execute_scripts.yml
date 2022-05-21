@@ -1,6 +1,8 @@
 name: Get data and upload viz workflow
 
-on: push
+on:
+  schedule:
+    - cron: "0 13 * * 0"
 
 jobs:
   get_data:
