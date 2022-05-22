@@ -45,7 +45,6 @@ jobs:
           git config --local user.name "cvillafraz"
           git add data/raw/ufc_events.json
           git commit -m "Get raw dataset on $(date '+%b %d %Y')" -a
-        shell: bash
       - name: Push changes
         if: steps.commit.outputs.push == 'true'
         uses: ad-m/github-push-action@master
