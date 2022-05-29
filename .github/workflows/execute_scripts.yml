@@ -1,6 +1,8 @@
 name: Get data and upload viz workflow
 
-on: push
+on:
+  schedule:
+    - cron: "0 13 * * 0"
 
 jobs:
   get_data:
@@ -32,6 +34,10 @@ jobs:
       - run: |
           pip install --editable .
           python ufc_events_eda/data/make_dataset.py
+          jupyter nbconvert --to notebook --execute notebooks/1-cvillafraz-data-processing.ipynb
+          jupyter nbconvert --to notebook --execute notebooks/2-cvillafraz-events-analysis.ipynb
+          jupyter nbconvert --to notebook --execute notebooks/3-cvillafraz-fights-analysis.ipynb
+          python ufc_events_eda/visualization/upload_viz.py
       - name: Commit data file
         id: commit
         run: |
