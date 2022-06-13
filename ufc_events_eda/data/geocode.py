@@ -10,8 +10,12 @@ def _geocode_df_cities(df: pd.DataFrame) -> pd.DataFrame:
     lat, lon = [], []
     for city in df["event_location"]:
         geocoded = _geocode_city(city)
-        lat.append(geocoded[0])
-        lon.append(geocoded[1])
+        if geocoded:
+            lat.append(geocoded[0])
+            lon.append(geocoded[1])
+        else:
+            lat.append(None)
+            lon.append(None)
     df["latitude"] = lat
     df["longitude"] = lon
     return df
@@ -22,7 +26,8 @@ def _geocode_city(city: str) -> tuple[float, float]:
     geocoder = Nominatim(user_agent="ufc_events_eda")
     geocode = RateLimiter(geocoder.geocode, min_delay_seconds=1)
     geocoded = geocode(city)
-    return geocoded.latitude, geocoded.longitude
+    if geocoded:
+        return geocoded.latitude, geocoded.longitude
 
 
 def main():
